@@ -16,6 +16,18 @@ provider "aws" {
   allowed_account_ids = [var.aws_account_id]
 }
 
+provider "aws" {
+  alias = "demo"
+  region              = var.region1
+  allowed_account_ids = [var.aws_account_id]
+}
+
+provider "aws" {
+  alias = "demo2"
+  region              = var.region2
+  allowed_account_ids = [var.aws_account_id]
+}
+
 ###############################################################################
 # Security Groups - DocumentDB
 ###############################################################################
@@ -26,6 +38,11 @@ module "documentdb_sg" {
   vpc_id      = "vpc-a3fccXXX"
   source_cidr = "0.0.0.0/0"
   # source_address = "XXXXXXX"
+
+  providers = {
+    aws    = aws.demo
+  }
+
 }
 
 ###############################################################################
@@ -53,4 +70,9 @@ module "documentdb" {
   global_region           = ["us-east-1", "us-east-2"]
   region                  = var.region
   account_id              = var.aws_account_id
+
+  providers = {
+    aws    = aws.demo2
+  }
+
 }
