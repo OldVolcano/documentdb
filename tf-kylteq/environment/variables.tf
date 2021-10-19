@@ -11,3 +11,16 @@ variable "region" {
   type        = string
   default     = "us-east-1"
 }
+
+variable "region1" {
+  description = "Region where resources will be created."
+  type        = string
+  default     = "us-west-1"
+}
+
+variable "region2" {
+  description = "Region where resources will be created."
+  type        = string
+  default     = "us-east-2"
+}
+
